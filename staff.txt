@@ -1,9 +1,9 @@
-Username: 
-Password:
-Email:
-Full Name
+username: startng
+password: 2020
+email: hello@hng.com
+full name: software development
 
-Username:
-Password:
-Email:
-Full Name:
+username: xylux
+password: #ikmf
+email: help@hng.com
+full name: ceo hng
