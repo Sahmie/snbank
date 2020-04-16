@@ -76,7 +76,33 @@ def bank_hall()
     dbase.puts account_number;
     dbase.close;
     puts account_number;
-
+    bank_hall();
+  elsif bank_hall_option == 2
+    puts "Please enter your account number"
+    print "> "
+    user_acct_input = gets.chomp
+    account_num_in_db = 0;
+    found = false;
+    contents = File.open("customer.txt", "r"){ |file| file.read }
+    customer_txt = contents.split(' ');
+    customer_txt.each_with_index do |item, index|
+      if (item == user_acct_input)
+         account_num_in_db += index;
+         found = true;
+      end
+    end
+    if found
+      puts "Account Name: #{customer_txt[account_num_in_db - 4]}"
+      puts "Opening Balance: #{customer_txt[account_num_in_db - 3]}"
+      puts "Account type: #{customer_txt[account_num_in_db - 2]}"
+      puts "Account email: #{customer_txt[account_num_in_db - 1]}"
+      puts "Account Number: #{customer_txt[account_num_in_db]}"
+    else
+    puts "Sorry, Invalid account details"
+    end
+    bank_hall()
+  else
+    #delete user session file 
   end
 end
 
