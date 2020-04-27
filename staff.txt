@@ -3,7 +3,7 @@ password: 2020
 email: hello@hng.com
 full name: software development
 
-username: xylux
+username: xyluz
 password: #ikmf
 email: help@hng.com
 full name: ceo hng

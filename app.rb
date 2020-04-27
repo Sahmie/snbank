@@ -77,8 +77,12 @@ def bank_hall()
     bank_hall()
   else
     #delete user session file 
+    snbank()
   end
 end
+
+
+def snbank()
 
 puts "****Welcome to startng bank ltd****"
 puts "****Please select an option(select either 1 or 2)"
@@ -105,5 +109,9 @@ if first_choice == 1
     puts "Sorry, login failed! please try again"
   end
 elsif first_choice == 2
-  puts "Goodbye!"
+  puts "Thank you for banking with us, Goodbye!"
 end
+
+end
+
+snbank()
