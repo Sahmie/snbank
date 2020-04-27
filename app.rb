@@ -108,6 +108,7 @@ if first_choice == 1
     bank_hall(user_name);
   elsif check_login == false
     puts "Sorry, login failed! please try again"
+    snbank()
   end
 elsif first_choice == 2
   puts "Thank you for banking with us, Goodbye!"
