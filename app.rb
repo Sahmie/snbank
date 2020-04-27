@@ -19,7 +19,7 @@ end
 
 
 ######banking hall function
-def bank_hall()
+def bank_hall(user_name)
   puts "Welcome, please select an option!"
   puts "1. Create new bank account"
   puts "2. Check Account details"
@@ -49,7 +49,7 @@ def bank_hall()
     dbase.puts account_number;
     dbase.close;
     puts "Your new account number is : #{account_number}";
-    bank_hall();
+    bank_hall(user_name);
   elsif bank_hall_option == 2
     puts "Please enter your account number"
     print "> "
@@ -74,9 +74,10 @@ def bank_hall()
     else
     puts "Sorry, Invalid account details"
     end
-    bank_hall()
+    bank_hall(user_name)
   else
     #delete user session file 
+    File.delete("#{user_name}.txt") if File.exist?("#{user_name}.txt")
     snbank()
   end
 end
@@ -104,7 +105,7 @@ if first_choice == 1
   if check_login
 #save user session
     File.open("#{user_name}.txt", 'w'){|file| file.puts user_name + "+" + pass_word}
-    bank_hall();
+    bank_hall(user_name);
   elsif check_login == false
     puts "Sorry, login failed! please try again"
   end
