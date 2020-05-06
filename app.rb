@@ -30,6 +30,7 @@ def bank_hall(user_name)
   print "> "
   bank_hall_option = gets.chomp.to_i
   if bank_hall_option == 1 #create new account
+    
     dbase = File.open("customer.txt", 'a')
     puts "please provide the following details..."
     puts "Account name(please no spaces, separate with underscore)"
@@ -105,12 +106,70 @@ def bank_hall(user_name)
     end
     bank_hall(user_name)
   elsif bank_hall_option == 4 #deposit money
-    
-    
-    bank_hall(user_name)
+    puts "Please enter Acount number"
+    print "> "
+    user_acct_input = gets.chomp
+    account_num_in_db = 0;
+    contents = File.open("customer.txt", "r"){ |file| file.read }
+    customer_txt = contents.split(' ');
+    customer_txt.each_with_index do |item, index|
+      if (item == user_acct_input)
+         account_num_in_db += index;
+         found = true;
+      end
+    end
+    if found
+      puts "Your account balance is #{customer_txt[account_num_in_db - 4]}"
+      puts "Enter amount to deposit"
+      print "> "
+      deposit_amount = gets.chomp.to_i
+      new_balace = customer_txt[account_num_in_db - 4].to_i + deposit_amount
+
+      customer_txt[account_num_in_db - 4] = new_balace
+
+      dbase = File.open("customer.txt", 'w')
+      customer_txt.each do |item|
+        dbase.puts item
+      end
+      dbase.close;
+      puts "Your account has been credited, your new account balance is #{customer_txt[account_num_in_db - 4]}"
+    else
+      puts "Account number not found, try again"
+      bank_hall(user_name)
+    end
   elsif bank_hall_option == 5 #make witdrawal
-    puts ""
+    
+    puts "Please enter Acount number"
+    print "> "
+    user_acct_input = gets.chomp
+    account_num_in_db = 0;
+    contents = File.open("customer.txt", "r"){ |file| file.read }
+    customer_txt = contents.split(' ');
+    customer_txt.each_with_index do |item, index|
+      if (item == user_acct_input)
+         account_num_in_db += index;
+         found = true;
+      end
+    end
+    if found
+      puts "Your account balance is #{customer_txt[account_num_in_db - 4]}"
+      puts "Enter amount to witdraw"
+      print "> "
+      withdrawal_amount = gets.chomp.to_i
+      new_balace = customer_txt[account_num_in_db - 4].to_i - withdrawal_amount
+
+      customer_txt[account_num_in_db - 4] = new_balace
+
+      dbase = File.open("customer.txt", 'w')
+      customer_txt.each do |item|
+        dbase.puts item
+      end
+      dbase.close;
+      puts "Your account has been debited, your new account balance is #{customer_txt[account_num_in_db - 4]}"
+    else
+      puts "Account number not found, try again"
     bank_hall(user_name)
+    end
   else
     #delete user session file 
     File.delete("#{user_name}.txt") if File.exist?("#{user_name}.txt")
