@@ -23,10 +23,13 @@ def bank_hall(user_name)
   puts "Welcome, please select an option!"
   puts "1. Create new bank account"
   puts "2. Check Account details"
-  puts "3. Logout"
+  puts "3. Check account balance"
+  puts "4. Deposit money"
+  puts "5. Make withdrawal"
+  puts "6. Logout"
   print "> "
   bank_hall_option = gets.chomp.to_i
-  if bank_hall_option == 1
+  if bank_hall_option == 1 #create new account
     dbase = File.open("customer.txt", 'a')
     puts "please provide the following details..."
     puts "Account name(please no spaces, separate with underscore)"
@@ -55,7 +58,7 @@ def bank_hall(user_name)
     dbase.close;
     puts "Your new account number is : #{account_number}";
     bank_hall(user_name);
-  elsif bank_hall_option == 2
+  elsif bank_hall_option == 2 #check account details
     puts "Please enter your account number"
     print "> "
     user_acct_input = gets.chomp
@@ -72,13 +75,41 @@ def bank_hall(user_name)
     if found
       puts "Your account details are...."
       puts "Account Name: #{customer_txt[account_num_in_db - 5]}"
-      puts "Opening Balance: #{customer_txt[account_num_in_db - 4]}"
+      puts "Account Balance: #{customer_txt[account_num_in_db - 4]}"
       puts "Account type: #{customer_txt[account_num_in_db - 3]}"
       puts "Account email: #{customer_txt[account_num_in_db - 2]}"
       puts "Account Number: #{customer_txt[account_num_in_db]}"
     else
     puts "Sorry, Invalid account details"
     end
+    bank_hall(user_name)
+  elsif bank_hall_option == 3 #check account balance
+    puts "Please enter your account number"
+    print "> "
+    user_acct_input = gets.chomp
+    account_num_in_db = 0;
+    found = false;
+    contents = File.open("customer.txt", "r"){ |file| file.read }
+    customer_txt = contents.split(' ');
+    customer_txt.each_with_index do |item, index|
+      if (item == user_acct_input)
+         account_num_in_db += index;
+         found = true;
+      end
+    end
+
+    if found
+      puts "Your account balance is: #{customer_txt[account_num_in_db - 4]}"
+    else
+      puts "Invalid account number, please try again"
+    end
+    bank_hall(user_name)
+  elsif bank_hall_option == 4 #deposit money
+    
+    
+    bank_hall(user_name)
+  elsif bank_hall_option == 5 #make witdrawal
+    puts ""
     bank_hall(user_name)
   else
     #delete user session file 
