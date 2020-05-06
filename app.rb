@@ -45,8 +45,13 @@ def bank_hall(user_name)
     print "> "
     account_email = gets.chomp
     dbase.puts account_email;
+    puts "Choose a secret pin for login(min 4 digits and max 6)"
+    print "> "
+    secret_pin = gets.chomp.to_i
+    dbase.puts secret_pin
     account_number = rand(10000000000)
     dbase.puts account_number;
+    # dbase.puts "#####"
     dbase.close;
     puts "Your new account number is : #{account_number}";
     bank_hall(user_name);
@@ -66,10 +71,10 @@ def bank_hall(user_name)
     end
     if found
       puts "Your account details are...."
-      puts "Account Name: #{customer_txt[account_num_in_db - 4]}"
-      puts "Opening Balance: #{customer_txt[account_num_in_db - 3]}"
-      puts "Account type: #{customer_txt[account_num_in_db - 2]}"
-      puts "Account email: #{customer_txt[account_num_in_db - 1]}"
+      puts "Account Name: #{customer_txt[account_num_in_db - 5]}"
+      puts "Opening Balance: #{customer_txt[account_num_in_db - 4]}"
+      puts "Account type: #{customer_txt[account_num_in_db - 3]}"
+      puts "Account email: #{customer_txt[account_num_in_db - 2]}"
       puts "Account Number: #{customer_txt[account_num_in_db]}"
     else
     puts "Sorry, Invalid account details"
@@ -89,7 +94,8 @@ puts "****Welcome to startng bank ltd****"
 puts "****Please select an option(select either 1 or 2)"
 
 puts "1.Staff Login"
-puts "2.Close App"
+puts "2.Login with acct number and pin"
+puts "3.Close App"
 
 first_choice = gets.chomp.to_i
 if first_choice == 1 
@@ -111,6 +117,34 @@ if first_choice == 1
     snbank()
   end
 elsif first_choice == 2
+  puts "Enter account number"
+  print "> "
+  login_acct = gets.chomp
+  puts "Enter login pin"
+  print "> "
+  login_pin = gets.chomp
+
+  #read customer.txt to check details
+    account_num_in_db = 0;
+    found = false;
+    contents = File.open("customer.txt", "r"){ |file| file.read }
+    customer_txt = contents.split(' ');
+    customer_txt.each_with_index do |item, index|
+      if (item == login_acct)
+         account_num_in_db += index;
+        #  pin_in_db = account_num_in_db - 1
+         found = true;
+      end
+    end
+    if found
+      if(customer_txt[account_num_in_db] == login_acct && customer_txt[account_num_in_db - 1] == login_pin)
+      bank_hall(user_name)
+      end 
+    else
+      puts "login failed, account number or pin invalid"
+      snbank()
+    end
+else
   puts "Thank you for banking with us, Goodbye!"
 end
 
