@@ -1,5 +1,5 @@
 samuel
-320200
+20200
 savings
 sammy@mail.com
 1234
@@ -10,3 +10,9 @@ current
 sammy
 1234
 5627457769
+chuks
+20000
+curren
+gmail
+1234
+9030654485
